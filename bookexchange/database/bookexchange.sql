@@ -56,6 +56,36 @@ CREATE TABLE books (
     FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Seller Book Listings table - Enhanced table for seller book management
+CREATE TABLE seller_book_listings (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    seller_id INT NOT NULL,
+    book_id INT NOT NULL,
+    listing_title VARCHAR(255) NOT NULL,
+    listing_description TEXT,
+    original_price DECIMAL(10,2),
+    selling_price DECIMAL(10,2) NOT NULL,
+    discount_percentage DECIMAL(5,2) DEFAULT 0.00,
+    availability_status ENUM('available', 'reserved', 'sold', 'unavailable') DEFAULT 'available',
+    listing_status ENUM('draft', 'active', 'paused', 'expired', 'deleted') DEFAULT 'draft',
+    featured BOOLEAN DEFAULT FALSE,
+    priority INT DEFAULT 0,
+    tags JSON,
+    shipping_cost DECIMAL(8,2) DEFAULT 0.00,
+    estimated_delivery_days INT DEFAULT 7,
+    return_policy TEXT,
+    additional_images JSON,
+    listing_views INT DEFAULT 0,
+    inquiry_count INT DEFAULT 0,
+    wishlist_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NULL,
+    FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_seller_book_listing (seller_id, book_id)
+);
+
 -- Cart table
 CREATE TABLE cart (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -187,6 +217,15 @@ INSERT INTO books (seller_id, title, author, category, price, description, `cond
 (4, 'Clean Code', 'Robert C. Martin', 'technology', 45.99, 'A handbook of agile software craftsmanship.', 'excellent', 'active'),
 (2, 'Sapiens', 'Yuval Noah Harari', 'non-fiction', 18.99, 'A brief history of humankind from the Stone Age to the present.', 'good', 'active');
 
+-- Insert sample seller book listings
+INSERT INTO seller_book_listings (seller_id, book_id, listing_title, listing_description, original_price, selling_price, discount_percentage, availability_status, listing_status, featured, tags, shipping_cost, estimated_delivery_days, return_policy) VALUES
+(2, 1, 'The Great Gatsby - Excellent Condition', 'Classic American literature in pristine condition. Perfect for literature students or collectors.', 19.99, 12.99, 35.02, 'available', 'active', TRUE, '["classic", "literature", "american", "fitzgerald"]', 3.99, 5, '30-day return policy if not satisfied'),
+(2, 2, 'To Kill a Mockingbird - Harper Lee', 'Timeless classic about justice and childhood. Good condition with minor wear.', 22.99, 15.99, 30.45, 'available', 'active', FALSE, '["classic", "justice", "childhood", "harper-lee"]', 3.99, 5, '30-day return policy'),
+(2, 3, '1984 by George Orwell - Dystopian Classic', 'Essential dystopian novel in excellent condition. No markings or highlights.', 18.99, 14.99, 21.06, 'available', 'active', TRUE, '["dystopian", "orwell", "classic", "political"]', 3.99, 5, '30-day return policy'),
+(4, 4, 'Introduction to Algorithms - Computer Science', 'Comprehensive algorithms textbook. Used but in good condition with some highlighting.', 120.00, 89.99, 25.01, 'available', 'active', FALSE, '["algorithms", "computer-science", "textbook", "cormen"]', 5.99, 7, '14-day return policy for academic books'),
+(4, 5, 'Clean Code - Software Development', 'Essential book for software developers. Excellent condition, no markings.', 55.99, 45.99, 17.86, 'available', 'active', TRUE, '["programming", "software", "clean-code", "development"]', 3.99, 5, '30-day return policy'),
+(2, 6, 'Sapiens - History of Humankind', 'Fascinating history book in good condition. Minor shelf wear.', 24.99, 18.99, 24.01, 'available', 'active', FALSE, '["history", "anthropology", "harari", "non-fiction"]', 3.99, 5, '30-day return policy');
+
 
 -- Create indexes for better performance
 CREATE INDEX idx_books_category ON books(category);
@@ -202,3 +241,13 @@ CREATE INDEX idx_reviews_book ON reviews(book_id);
 CREATE INDEX idx_reviews_rating ON reviews(rating);
 CREATE INDEX idx_messages_sender ON messages(sender_id);
 CREATE INDEX idx_messages_receiver ON messages(receiver_id);
+
+-- Indexes for seller_book_listings table
+CREATE INDEX idx_seller_listings_seller ON seller_book_listings(seller_id);
+CREATE INDEX idx_seller_listings_book ON seller_book_listings(book_id);
+CREATE INDEX idx_seller_listings_status ON seller_book_listings(listing_status);
+CREATE INDEX idx_seller_listings_availability ON seller_book_listings(availability_status);
+CREATE INDEX idx_seller_listings_featured ON seller_book_listings(featured);
+CREATE INDEX idx_seller_listings_price ON seller_book_listings(selling_price);
+CREATE INDEX idx_seller_listings_created ON seller_book_listings(created_at);
+CREATE INDEX idx_seller_listings_priority ON seller_book_listings(priority);

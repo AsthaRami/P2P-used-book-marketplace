@@ -106,9 +106,13 @@ async function handleSignup(e) {
             
             showNotification('Account created successfully!', 'success');
             
-            // Redirect to appropriate dashboard
+            // Redirect to appropriate dashboard based on account type
             setTimeout(() => {
-                window.location.href = 'buyer-dashboard.html';
+                if (data.data.user_type === 'seller') {
+                    window.location.href = 'seller-dashboard.html';
+                } else {
+                    window.location.href = 'buyer-dashboard.html';
+                }
             }, 1000);
         } else {
             showNotification(data.message, 'error');

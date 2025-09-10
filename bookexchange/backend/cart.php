@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 b.author,
                 b.price,
                 b.image_path,
-                b.condition,
+                b.`condition`,
                 u.first_name,
                 u.last_name
             FROM cart c

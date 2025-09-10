@@ -92,6 +92,7 @@ function displayBooks(books, containerId) {
             <div class="book-info">
                 <h3 class="book-title">${book.title}</h3>
                 <p class="book-author">By ${book.author}</p>
+                ${book.isbn ? `<p class="book-isbn">ISBN: ${book.isbn}</p>` : ''}
                 <div class="book-rating">
                     <span class="stars">${generateStars(book.avg_rating)}</span>
                     <span class="rating-text">(${book.avg_rating}) - ${book.review_count} reviews</span>

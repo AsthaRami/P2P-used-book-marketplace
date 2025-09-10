@@ -8,11 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = sanitizeInput($_POST['phone']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
+    $accountType = sanitizeInput($_POST['accountType']);
     $terms = isset($_POST['terms']) ? true : false;
     
     // Validate input
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($password) || empty($confirmPassword)) {
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($password) || empty($confirmPassword) || empty($accountType)) {
         sendResponse(false, 'Please fill in all fields');
+    }
+    
+    // Validate account type
+    if (!in_array($accountType, ['buyer', 'seller'])) {
+        sendResponse(false, 'Invalid account type selected');
     }
     
     if (!validateEmail($email)) {
@@ -50,10 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert new user
         $stmt = $pdo->prepare("
             INSERT INTO users (first_name, last_name, email, phone, password, user_type, status, created_at) 
-            VALUES (?, ?, ?, ?, ?, 'buyer', 'active', NOW())
+            VALUES (?, ?, ?, ?, ?, ?, 'active', NOW())
         ");
         
-        $result = $stmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword]);
+        $result = $stmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword, $accountType]);
         
         if ($result) {
             $userId = $pdo->lastInsertId();
@@ -63,13 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $userId;
             $_SESSION['user_email'] = $email;
             $_SESSION['user_name'] = $firstName . ' ' . $lastName;
-            $_SESSION['user_type'] = 'buyer';
+            $_SESSION['user_type'] = $accountType;
             
             sendResponse(true, 'Account created successfully', [
                 'user_id' => $userId,
                 'name' => $firstName . ' ' . $lastName,
                 'email' => $email,
-                'user_type' => 'buyer'
+                'user_type' => $accountType
             ]);
         } else {
             sendResponse(false, 'Failed to create account. Please try again.');

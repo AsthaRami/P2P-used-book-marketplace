@@ -1077,3 +1077,81 @@ p {
         max-width: 300px;
     }
 }
+
+/* Account Type Selection Styles */
+.account-type-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.account-type-option {
+    cursor: pointer;
+    position: relative;
+}
+
+.account-type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.account-type-card {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-type-option input[type="radio"]:checked + .account-type-card {
+    border-color: #2596be;
+    background-color: #f8fdff;
+    box-shadow: 0 4px 12px rgba(37, 150, 190, 0.15);
+}
+
+.account-type-option:hover .account-type-card {
+    border-color: #2596be;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.account-type-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.account-type-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.account-type-card p {
+    color: #666;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .account-type-selection {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Book ISBN Styles */
+.book-isbn {
+    font-size: 0.75rem;
+    color: #888;
+    margin: 0.25rem 0;
+    font-style: italic;
+}

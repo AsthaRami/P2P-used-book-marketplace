@@ -119,6 +119,7 @@ function displayMyBooks(books) {
             <div class="book-info">
                 <h3 class="book-title">${book.title}</h3>
                 <p class="book-author">By ${book.author}</p>
+                ${book.isbn ? `<p class="book-isbn">ISBN: ${book.isbn}</p>` : ''}
                 <div class="book-details">
                     <span class="book-category">${book.category}</span>
                     <span class="book-condition">${book.condition}</span>
@@ -442,6 +443,13 @@ style.textContent = `
         border-radius: 20px;
         font-size: 0.75rem;
         color: #666;
+    }
+    
+    .book-isbn {
+        font-size: 0.75rem;
+        color: #888;
+        margin: 0.25rem 0;
+        font-style: italic;
     }
     
     .book-actions {

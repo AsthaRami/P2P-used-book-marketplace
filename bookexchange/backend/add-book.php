@@ -5,6 +5,7 @@ require_once 'db.php';
 $userId = checkAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $isbn = sanitizeInput($_POST['book_id']);
     $title = sanitizeInput($_POST['title']);
     $author = sanitizeInput($_POST['author']);
     $category = sanitizeInput($_POST['category']);
@@ -39,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$imagePath) {
                 sendResponse(false, 'Failed to upload image. Please try again.');
             }
-        } else {
+        } else {-
             sendResponse(false, 'Please upload a book cover image');
         }
         
         // Insert book into database
         $stmt = $pdo->prepare("
-            INSERT INTO books (seller_id, title, author, category, price, description, condition, image_path, status, created_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active', NOW())
+            INSERT INTO books (seller_id, isbn, title, author, category, price, description, `condition`, image_path, status, created_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', NOW())
         ");
         
-        $result = $stmt->execute([$userId, $title, $author, $category, $price, $description, $condition, $imagePath]);
+        $result = $stmt->execute([$userId, $isbn, $title, $author, $category, $price, $description, $condition, $imagePath]);
         
         if ($result) {
             $bookId = $pdo->lastInsertId();
