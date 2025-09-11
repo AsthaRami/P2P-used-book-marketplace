@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
     <!-- Navigation -->
@@ -27,7 +29,7 @@
                     <a href="cart.html" class="nav-link">Cart <span class="cart-count">0</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+                    <a href="index.html" class="nav-link" id="logoutBtn">Logout</a>
                 </li>
             </ul>
         </div>
@@ -44,11 +46,22 @@
             <!-- Search and Filters -->
             <div class="search-filters">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search for books...">
-                    <button class="search-btn">🔍</button>
+                    <input type="text" id="searchInput" placeholder="Search for books..." style="    
+                    padding: 8px 11px 8px 11px;
+                    border-radius: 7px;
+                    border: 1px solid black;
+                    width: 260px;">
+                    <button class="search-btn">
+                        <span style="border: none;">
+                            <i class="fas fa-search" style="font-size: 21px; border: 2px solid transparent; text-decoration: none;"></i>
+                        </span>
+                    </button>
                 </div>
                 <div class="filters">
-                    <select id="categoryFilter">
+                    <select id="categoryFilter" style="    padding: 7px;
+                    margin-top: 10px;
+                    border-radius: 10px;
+                    border: 1px solid black;">
                         <option value="">All Categories</option>
                         <option value="fiction">Fiction</option>
                         <option value="non-fiction">Non-Fiction</option>
@@ -56,7 +69,10 @@
                         <option value="textbook">Textbook</option>
                         <option value="novel">Novel</option>
                     </select>
-                    <select id="priceFilter">
+                    <select id="priceFilter" style="    padding: 7px;
+                    border: 1px solid black;
+                    border-radius: 10px;
+                    margin-left: 10px;">
                         <option value="">All Prices</option>
                         <option value="0-50">Under Rs50</option>
                         <option value="50-100">Rs50 - Rs100</option>

@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/contactform-style.css">
+
 </head>
 <body>
     <!-- Navigation -->
@@ -89,10 +91,9 @@
                     </div>
                 </div>
                 
-                <div class="contact-form-container">
-                    <form id="contactForm" class="contact-form">
+                <!-- <div class="contact-form-container">
+                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/xpwjbvzp" method="POST">
                         <h3>Send us a Message</h3>
-                        
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
@@ -120,7 +121,70 @@
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    </form>
+                    </form> -->
+
+                    <!-- <form  action="https://formspree.io/f/xpwjbvzp" method="POST">
+                        <h3>Send us a Message</h3>
+                        <label>
+                          First Name:
+                          <input type="text" name="firstName" required>
+                        </label>
+                      
+                        <label>
+                          Last Name:
+                          <input type="text" name="lastName" required>
+                        </label>
+                      
+                        <label>
+                          Email Address:
+                          <input type="email" name="email" required>
+                        </label>
+                      
+                        <label>
+                          Subject:
+                          <input type="text" name="subject" required>
+                        </label>
+                      
+                        <label>
+                          Message:
+                          <textarea name="message" rows="5" required></textarea>
+                        </label>
+                      
+                        <button type="submit">Send Message</button>
+                      </form> -->
+
+
+                      <form id="userMessageForm" class="form-box" action="https://formspree.io/f/xpwjbvzp" method="POST">
+                        <h3>Send us a Message</h3>
+                        
+                        <label>
+                          First Name:
+                          <input type="text" name="firstName" required>
+                        </label>
+                    
+                        <label>
+                          Last Name:
+                          <input type="text" name="lastName" required>
+                        </label>
+                    
+                        <label>
+                          Email Address:
+                          <input type="email" name="email" required>
+                        </label>
+                    
+                        <label>
+                          Subject:
+                          <input type="text" name="subject" required>
+                        </label>
+                    
+                        <label>
+                          Message:
+                          <textarea name="message" rows="5" required></textarea>
+                        </label>
+                    
+                        <button type="submit">Send Message</button>
+                      </form>
+                      
                 </div>
             </div>
         </div>

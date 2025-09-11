@@ -502,7 +502,7 @@ p {
 
 .form-group input,
 .form-group select,
-.form-group textarea {
+.form-group textarea{ 
     width: 100%;
     padding: 12px 16px;
     border: 2px solid #e9ecef;
@@ -510,6 +510,7 @@ p {
     font-size: 1rem;
     font-family: 'Outfit', sans-serif;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -517,6 +518,7 @@ p {
 .form-group textarea:focus {
     outline: none;
     border-color: #3498db;
+    /* box-sizing: border-box; */
 }
 
 .checkbox-label {
@@ -597,8 +599,15 @@ p {
     color: #666;
 }
 
+.about-image {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    align-content: center;
+}
+
 .about-image img {
-    width: 100%;
+    width: 70%;
     height: auto;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
