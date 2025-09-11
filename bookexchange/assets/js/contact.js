@@ -152,7 +152,7 @@ function initFAQ() {
             // Toggle current item
             if (!isActive) {
                 answer.classList.add('active');
-                toggle.textContent = '−';
+                toggle.textContent = '+';
             } else {
                 answer.classList.remove('active');
                 toggle.textContent = '+';

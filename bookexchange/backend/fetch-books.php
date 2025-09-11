@@ -9,6 +9,8 @@ $category = isset($_GET['category']) ? sanitizeInput($_GET['category']) : '';
 $priceMin = isset($_GET['price_min']) ? floatval($_GET['price_min']) : 0;
 $priceMax = isset($_GET['price_max']) ? floatval($_GET['price_max']) : 999999;
 $sellerId = isset($_GET['seller_id']) ? intval($_GET['seller_id']) : null;
+// Optional specific book id filter (used by book-details page)
+$bookId = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 $offset = ($page - 1) * $limit;
 
@@ -43,6 +45,15 @@ try {
     if ($sellerId) {
         $whereConditions[] = "b.seller_id = ?";
         $params[] = $sellerId;
+    }
+    
+    // If a specific book id is requested, filter by it
+    if ($bookId) {
+        $whereConditions[] = "b.id = ?";
+        $params[] = $bookId;
+        // When fetching a single book, we only need one result
+        $limit = 1;
+        $page = 1;
     }
     
     $whereClause = implode(' AND ', $whereConditions);
